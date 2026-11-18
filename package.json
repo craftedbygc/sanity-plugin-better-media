@@ -1,0 +1,71 @@
+{
+  "name": "@unseenco/sanity-plugin-better-media",
+  "version": "1.0.0",
+  "description": "A cleaner media library for Sanity Studio: browse, filter, categorise, describe, replace and clean up images and files. Data compatible with sanity-plugin-media.",
+  "keywords": [
+    "alt-text",
+    "assets",
+    "media",
+    "media-library",
+    "sanity",
+    "sanity-plugin"
+  ],
+  "license": "MIT",
+  "author": "jake whiteley",
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js",
+      "./package.json": "./package.json"
+    }
+  },
+  "scripts": {
+    "build": "plugin-kit verify-package --silent && pkg-utils build --strict --check --clean",
+    "format": "oxfmt",
+    "link-watch": "plugin-kit link-watch",
+    "lint": "oxlint",
+    "prepublishOnly": "npm run build",
+    "watch": "pkg-utils watch --strict"
+  },
+  "dependencies": {
+    "@sanity/icons": "^3.8.0",
+    "@sanity/ui": "^3.5.5"
+  },
+  "devDependencies": {
+    "@sanity/pkg-utils": "^13.0.18",
+    "@sanity/plugin-kit": "^10.1.1",
+    "@types/react": "^19.1.10",
+    "oxfmt": "^0.73.0",
+    "oxlint": "^1.94.0",
+    "oxlint-tsgolint": "^7.0.2007",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "sanity": "^5.31.2",
+    "styled-components": "^6.1.19",
+    "typescript": "^6.0.3"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19",
+    "sanity": "^5",
+    "styled-components": "^6"
+  },
+  "browserslist": "extends @sanity/browserslist-config",
+  "engines": {
+    "node": ">=20.19 <22 || >=22.12"
+  }
+}

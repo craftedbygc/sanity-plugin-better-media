@@ -1,10 +1,14 @@
-# sanity-plugin-better-media
+# @unseenco/sanity-plugin-better-media
 
 A media library for Sanity Studio. Browse, search and filter every image and file, upload by drag and drop, sort assets into categories, write alt text, see where each asset is used, replace a file everywhere at once, and clean up what nothing uses. The same browser opens from image and file fields to pick an asset.
 
 It reads and writes the same data as [sanity-plugin-media](https://github.com/sanity-io/sanity-plugin-media), so you can switch with nothing to migrate.
 
-<!-- TODO: screenshots of the tool, the asset panel and the picker -->
+![The Media tool: sidebar with views and categories, a grid of assets, and the asset panel](docs/screenshots/library.png)
+
+| Filters                                                                                                   | Picking for a field                                                                     |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| ![The Filter menu with type, categories, orientation, size and upload date](docs/screenshots/filters.png) | ![The library opened from an image field to pick an asset](docs/screenshots/picker.png) |
 
 ## Features
 
@@ -23,7 +27,7 @@ It reads and writes the same data as [sanity-plugin-media](https://github.com/sa
 ## Installation
 
 ```sh
-npm install sanity-plugin-better-media
+npm install @unseenco/sanity-plugin-better-media
 ```
 
 Requires Sanity Studio v5 and React 19.
@@ -33,7 +37,7 @@ Requires Sanity Studio v5 and React 19.
 ```ts
 // sanity.config.ts
 import {defineConfig} from 'sanity'
-import {betterMedia} from 'sanity-plugin-better-media'
+import {betterMedia} from '@unseenco/sanity-plugin-better-media'
 
 export default defineConfig({
   // ...
@@ -69,11 +73,11 @@ form: {
 
 ## Data
 
-| Field | On | What |
-|---|---|---|
-| `title`, `altText`, `description` | The asset (`sanity.imageAsset`, `sanity.fileAsset`) | Sanity's own asset fields |
-| `opt.media.tags` | The asset | Weak references to the asset's categories |
-| `name.current` | `media.tag` documents | A category's name |
+| Field                             | On                                                  | What                                      |
+| --------------------------------- | --------------------------------------------------- | ----------------------------------------- |
+| `title`, `altText`, `description` | The asset (`sanity.imageAsset`, `sanity.fileAsset`) | Sanity's own asset fields                 |
+| `opt.media.tags`                  | The asset                                           | Weak references to the asset's categories |
+| `name.current`                    | `media.tag` documents                               | A category's name                         |
 
 Alt text lives on the asset, so it's shared by every use of an image. Fetch it with the image:
 
@@ -88,7 +92,7 @@ Alt text lives on the asset, so it's shared by every use of an image. Fetch it w
 
 ## Switching from sanity-plugin-media
 
-1. `npm uninstall sanity-plugin-media`, then `npm install sanity-plugin-better-media`.
+1. `npm uninstall sanity-plugin-media`, then `npm install @unseenco/sanity-plugin-better-media`.
 2. Replace `media()` with `betterMedia()` in `sanity.config.ts`, and `mediaAssetSource` with a check for `source.name === 'better-media'` in any asset source filters.
 
 Your alt text, titles, descriptions and tags (now called categories) carry over as they are. Don't install both plugins: they both define the `media.tag` type, and the Studio won't start.
@@ -110,4 +114,4 @@ This plugin uses [@sanity/plugin-kit](https://github.com/sanity-io/plugins/tree/
 - `npm run watch` rebuilds on every change.
 - `npm run lint` / `npm run format` run oxlint / oxfmt.
 
-To work on it inside a Studio without publishing, install it from its folder (`npm install ../sanity-plugin-better-media`) and run `npm run watch` here. Use `watch` rather than `build` while the Studio runs: `build` deletes and recreates `dist/`, after which the Studio's dev server keeps serving the old build until it's restarted. Add `sanity`, `react`, `react-dom`, `styled-components`, `@sanity/ui` and `@sanity/icons` to `resolve.dedupe` in the Studio's `sanity.cli.ts` (`vite` option), so the linked plugin uses the Studio's copies rather than its own. See [Testing a plugin in Sanity Studio](https://github.com/sanity-io/plugins/tree/main/packages/@sanity/plugin-kit#testing-a-plugin-in-sanity-studio) for the yalc alternative.
+To work on it inside a Studio without publishing, install it from its folder (`npm install ../sanity-plugin-better-media`) and run `npm run watch` here. Use `watch` rather than `build` while the Studio runs: `build` deletes and recreates `dist/`, after which the Studio's dev server keeps serving the old build until it's restarted. Add `sanity`, `react`, `react-dom` and `styled-components` to `resolve.dedupe` in the Studio's `sanity.cli.ts` (`vite` option), so the linked plugin uses the Studio's copies rather than its own. Don't add `@sanity/ui` or `@sanity/icons`: Studio dependencies rely on their own nested versions of those, and deduping them stops the dev server starting. See [Testing a plugin in Sanity Studio](https://github.com/sanity-io/plugins/tree/main/packages/@sanity/plugin-kit#testing-a-plugin-in-sanity-studio) for the yalc alternative.
